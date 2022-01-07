@@ -1,7 +1,11 @@
 import React from "react";
-import { Col } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 
-export default function ScoopOptions({ name, imagePath }) {
+export default function ScoopOptions({ name, imagePath, updateItemCount }) {
+  const handleChange = (evt) => {
+    updateItemCount(name, evt.target.value);
+  };
+
   return (
     <Col xs={12} sm={6} md={4} ls={3} style={{ textAlign: "center" }}>
       <img
@@ -9,6 +13,22 @@ export default function ScoopOptions({ name, imagePath }) {
         src={`http://localhost:3000/${imagePath}`}
         alt={`${name} scoop`}
       />
+      <Form.Group
+        controlId={`${name}-count`}
+        as={Row}
+        style={{ marginTop: "10px" }}
+      >
+        <Form.Label column xs="6" style={{ textAlign: "right" }}>
+          {name}
+        </Form.Label>
+        <Col xs="5" style={{ textAlign: "left" }}>
+          <Form.Control
+            type="nummber"
+            defaultValue={0}
+            onChange={handleChange}
+          />
+        </Col>
+      </Form.Group>
     </Col>
   );
 }

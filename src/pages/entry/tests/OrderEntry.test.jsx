@@ -1,4 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+} from "../../../test-utils/testing-library-utils";
 import OrderEntry from "../OrderEntry";
 import { rest } from "msw";
 import { server } from "../../../mocks/server";
@@ -13,7 +17,7 @@ test.only("handles errors for scoops & toppings routes", async () => {
       res(ctx.status(500))
     )
   );
-
+  // use customized render function that comes with Provider
   render(<OrderEntry />);
   // alert is getting sent back twice (not sync), need to use waitFor to wait for both alerts to come back before running test
   await waitFor(async () => {
